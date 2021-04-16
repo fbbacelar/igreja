@@ -1,14 +1,21 @@
 package br.com.fabio.igreja.models;
 
+import br.com.fabio.igreja.controllers.form.ChamadoSemMembrosForm;
+import br.com.fabio.igreja.controllers.form.MembroSemChamadosForm;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
-@Entity
-public class Chamado {
+@Entity(name="Chamado")
+@Table(name="chamado")
+public class Chamado implements Serializable {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,6 +25,25 @@ public class Chamado {
     @ManyToMany(mappedBy = "chamados")
     private List<Membro> membros;
     
+    public Chamado() {
+    }
+
+    public Chamado(String nome) {
+        this.nome = nome;
+        if (this.membros == null)
+            this.membros = new ArrayList<>();
+    }
+    
+    public Chamado(Long id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
+
+    public Chamado(ChamadoSemMembrosForm chamado) {
+        this.id = chamado.getId();
+        this.nome = chamado.getNome();
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;

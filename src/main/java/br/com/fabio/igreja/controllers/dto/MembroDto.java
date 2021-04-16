@@ -1,22 +1,24 @@
 package br.com.fabio.igreja.controllers.dto;
 
-import br.com.fabio.igreja.models.Chamado;
 import java.util.stream.Collectors;
 
 import br.com.fabio.igreja.models.Membro;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 public class MembroDto {
 
-    private Long id;
-    private String nome;
-    private String sexo;
-//    private List<ChamadoDto> chamados;
+    private final Long id;
+    
+    private final String nome;
+    
+    private final String sexo;
 
     public MembroDto(Membro membro) {
         this.id = membro.getId();
         this.nome = membro.getNome();
         this.sexo = membro.getSexo();
+
     }
 
     public Long getId() {
@@ -26,10 +28,6 @@ public class MembroDto {
     public String getNome() {
         return nome;
     }
-
-//    public List<ChamadoDto> getChamados() {
-//        return chamados;
-//    }
 
     public String getSexo() {
         return sexo;

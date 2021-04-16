@@ -1,11 +1,14 @@
 package br.com.fabio.igreja.controllers.form;
 
 import br.com.fabio.igreja.models.Membro;
-import java.util.List;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
-public class MembroForm {
+public class MembroSemChamadosForm {
+    
+    @NotNull @NotEmpty
+    private Long id;
 
     @NotNull @Length(min=5, max=255)
     private String nome;
@@ -13,8 +16,15 @@ public class MembroForm {
     @NotNull @Length(min=1, max=1)
     private String sexo;
 
-    private List<ChamadoSemMembrosForm> chamados;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
 
     public String getNome() {
         return nome;
@@ -32,15 +42,10 @@ public class MembroForm {
         this.sexo = sexo;
     }
 
-    public List<ChamadoSemMembrosForm> getChamados() {
-        return chamados;
-    }
-
-    public void setChamados(List<ChamadoSemMembrosForm> chamados) {
-        this.chamados = chamados;
-    }
     
     public Membro converter(){
-        return new Membro(nome, sexo, chamados);
+        return new Membro(id, nome, sexo);
     }
+
+    
 }

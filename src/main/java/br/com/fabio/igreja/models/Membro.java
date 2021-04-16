@@ -1,18 +1,27 @@
 package br.com.fabio.igreja.models;
 
+import br.com.fabio.igreja.controllers.form.ChamadoSemMembrosForm;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import org.hibernate.validator.constraints.Length;
 
-@Entity
-public class Membro {
+@Entity(name="Membro")
+@Table(name="membro")
+public class Membro implements Serializable {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @Length(min=3, max= 255)
     private String nome;
     
     private String sexo;
@@ -23,15 +32,25 @@ public class Membro {
     public Membro() {
     }
 
+    public Membro(Long id, String nome, String sexo) {
+        this.id = id;
+        this.nome = nome;
+        this.sexo = sexo;
+    }
+
     public Membro(String nome, String sexo) {
         this.nome = nome;
         this.sexo = sexo;
-//        this.chamados = chamados;
     }
     
+    public Membro(String nome, String sexo, List<ChamadoSemMembrosForm> chamadosForm) {
+        this.nome = nome;
+        this.sexo = sexo;
+        this.chamados = new ArrayList<>();
+        if (chamadosForm != null)
+        this.chamados.addAll(chamadosForm.stream().map(Chamado::new).collect(Collectors.toList()));
+    }
     
-    
-
     @Override
     public int hashCode() {
         final int prime = 31;
