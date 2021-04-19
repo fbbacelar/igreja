@@ -1,15 +1,15 @@
-INSERT INTO MEMBRO(nome, sexo) VALUES ('Fábio Brandão Bacelar', 'M');
+INSERT INTO MEMBRO(nome, sexo) VALUES ('FÃ¡bio BrandÃ£o Bacelar', 'M');
 INSERT INTO MEMBRO(nome, sexo) VALUES ('Rosana Barros de Melo Bacelar', 'F');
 INSERT INTO MEMBRO(nome, sexo) VALUES ('Ellen Barros Bacelar', 'F');
 INSERT INTO MEMBRO(nome, sexo) VALUES ('Bruno Barros Bacelar', 'M');
-INSERT INTO MEMBRO(nome, sexo) VALUES ('Fábio Brandão Bacelar Jr', 'M');
+INSERT INTO MEMBRO(nome, sexo) VALUES ('FÃ¡bio BrandÃ£o Bacelar Jr', 'M');
 
 INSERT INTO CHAMADO(nome) VALUES ('Membro do Sumo Conselho da estaca');
-INSERT INTO CHAMADO(nome) VALUES ('Presidente das moças');
+INSERT INTO CHAMADO(nome) VALUES ('Presidente das moÃ§as');
 INSERT INTO CHAMADO(nome) VALUES ('Membro do coro');
-INSERT INTO CHAMADO(nome) VALUES ('Presidente do Quórum de Mestres');
-INSERT INTO CHAMADO(nome) VALUES ('Presidente do Quórum de Diáconos');
-INSERT INTO CHAMADO(nome) VALUES ('Casal Mais Missionários');
+INSERT INTO CHAMADO(nome) VALUES ('Presidente do QuÃ³rum de Mestres');
+INSERT INTO CHAMADO(nome) VALUES ('Presidente do QuÃ³rum de DiÃ¡conos');
+INSERT INTO CHAMADO(nome) VALUES ('Casal Mais MissionÃ¡rios');
 
 
 INSERT INTO MEMBRO_CHAMADOS(membros_id, chamados_id) VALUES (1, 1);

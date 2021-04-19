@@ -43,4 +43,10 @@ public class MembroForm {
     public Membro converter(){
         return new Membro(nome, sexo, chamados);
     }
+
+    public Membro atualizar(Membro membro){
+        membro.setNome(this.nome);
+        membro.setSexo(this.sexo);
+        return membro;
+    }
 }

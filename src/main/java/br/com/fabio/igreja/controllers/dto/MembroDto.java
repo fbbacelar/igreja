@@ -3,7 +3,7 @@ package br.com.fabio.igreja.controllers.dto;
 import java.util.stream.Collectors;
 
 import br.com.fabio.igreja.models.Membro;
-import com.fasterxml.jackson.annotation.JsonProperty;
+// import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 public class MembroDto {

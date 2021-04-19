@@ -3,13 +3,9 @@ package br.com.fabio.igreja.controllers;
 import br.com.fabio.igreja.controllers.dto.ChamadoDetalheDto;
 import br.com.fabio.igreja.controllers.dto.ChamadoDto;
 import java.util.List;
-
 import org.springframework.web.bind.annotation.RestController;
-
 import br.com.fabio.igreja.controllers.form.ChamadoForm;
-import br.com.fabio.igreja.models.Chamado;
 import br.com.fabio.igreja.services.ChamadoService;
-import java.net.URI;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -29,28 +25,17 @@ public class ChamadoController {
 
     @GetMapping
     public List<ChamadoDto> listar(String membroNome) {
-        if (membroNome == null) {
-            List<Chamado> chamados = service.findAll();
-            return ChamadoDto.converter(chamados);
-        } else {
-            List<Chamado> chamados = service.findByMembros_Nome(membroNome);
-            return ChamadoDto.converter(chamados);
-        }
+        return service.find(membroNome);
     }
 
     @PostMapping
-    public ResponseEntity<ChamadoDetalheDto> salvar(@RequestBody @Valid ChamadoForm form, UriComponentsBuilder uriBuilder) {
-        Chamado chamado = form.converter();
-        service.save(chamado);
-        
-        URI uri = uriBuilder.path("/chamados/{id}").buildAndExpand(chamado.getId()).toUri();
-        return ResponseEntity.created(uri).body(new ChamadoDetalheDto(chamado));
+    public ResponseEntity<ChamadoDetalheDto> salvar(@RequestBody @Valid ChamadoForm chamadoForm, UriComponentsBuilder uriBuilder) {
+        return service.save(chamadoForm, uriBuilder);
     }
     
     @GetMapping("/{id}")
     public ChamadoDetalheDto buscar(@PathVariable Long id){
-        Chamado chamado = service.getOne(id);
-        return new ChamadoDetalheDto(chamado);
+        return service.getOne(id);
     }
 
 }

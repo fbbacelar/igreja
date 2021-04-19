@@ -1,8 +1,8 @@
 package br.com.fabio.igreja.controllers.form;
 
 import br.com.fabio.igreja.models.Chamado;
-import br.com.fabio.igreja.models.Membro;
-import java.util.List;
+// import br.com.fabio.igreja.models.Membro;
+// import java.util.List;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;

@@ -1,7 +1,6 @@
 package br.com.fabio.igreja.controllers.dto;
 
 import br.com.fabio.igreja.models.Chamado;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 

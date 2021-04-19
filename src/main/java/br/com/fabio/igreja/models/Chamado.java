@@ -1,25 +1,26 @@
 package br.com.fabio.igreja.models;
 
 import br.com.fabio.igreja.controllers.form.ChamadoSemMembrosForm;
-import br.com.fabio.igreja.controllers.form.MembroSemChamadosForm;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import org.hibernate.validator.constraints.Length;
 
 @Entity(name="Chamado")
 @Table(name="chamado")
 public class Chamado implements Serializable {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @Length(min = 3, max = 255)
     private String nome;
     
     @ManyToMany(mappedBy = "chamados")
