@@ -3,6 +3,7 @@ package br.com.fabio.igreja.controllers.dto;
 import java.util.stream.Collectors;
 
 import br.com.fabio.igreja.models.Membro;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class MembroDetalheDto {
     private final String nome;
     private final String sexo;
     private final List<ChamadoDto> chamados;
+    private final UnidadeDto unidade;
 
     public MembroDetalheDto(Membro membro) {
         this.id = membro.getId();
@@ -19,6 +21,7 @@ public class MembroDetalheDto {
         this.sexo = membro.getSexo();
         this.chamados = new ArrayList<>();
         this.chamados.addAll(membro.getChamados().stream().map(ChamadoDto::new).collect(Collectors.toList()));
+        this.unidade = new UnidadeDto(membro.getUnidade());
     }
 
     public Long getId() {
@@ -35,6 +38,10 @@ public class MembroDetalheDto {
     
     public List<ChamadoDto> getChamados() {
         return chamados;
+    }
+
+    public UnidadeDto getUnidade() {
+        return unidade;
     }
 
     public static List<MembroDetalheDto> converter(List<Membro> membros) {

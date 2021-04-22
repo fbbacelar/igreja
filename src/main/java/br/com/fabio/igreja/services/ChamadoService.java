@@ -8,12 +8,16 @@ import br.com.fabio.igreja.models.Membro;
 import br.com.fabio.igreja.repositories.ChamadoRepository;
 import java.net.URI;
 import java.util.List;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
+@Transactional
 public class ChamadoService {
  
     @Autowired
@@ -60,6 +64,17 @@ public class ChamadoService {
         repository.save(chamado);
         URI uri = uriBuilder.path("/chamados/{id}").buildAndExpand(chamado.getId()).toUri();
         return ResponseEntity.created(uri).body(new ChamadoDetalheDto(chamado));
+    }
+
+    public ResponseEntity<ChamadoDetalheDto> atualizar(Long id, ChamadoForm chamadoForm) {
+        Chamado chamado = repository.getOne(id);
+        chamado = chamadoForm.atualizar(chamado);
+        return ResponseEntity.ok(new ChamadoDetalheDto(chamado));
+    }
+
+    public ResponseEntity<?> deleteById(Long id) {
+        repository.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 
 }

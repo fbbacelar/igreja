@@ -8,4 +8,8 @@ public interface MembroRepository extends JpaRepository<Membro, Long>{
 
     public List<Membro> findByChamados_Nome(String nome);
 
+    public List<Membro> findByUnidade_Nome(String chamadoNome);
+
+    public List<Membro> findByChamados_NomeAndUnidade_Nome(String chamadoNome, String unidadeNome);
+
 }

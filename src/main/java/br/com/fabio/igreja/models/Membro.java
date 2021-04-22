@@ -1,6 +1,5 @@
 package br.com.fabio.igreja.models;
 
-import br.com.fabio.igreja.controllers.form.ChamadoSemMembrosForm;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.hibernate.validator.constraints.Length;
+import br.com.fabio.igreja.controllers.form.ChamadoSemMembrosForm;
 
 @Entity(name="Membro")
 @Table(name="membro")
@@ -21,7 +22,7 @@ public class Membro implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Length(min = 3, max = 255)
+    @Length(min = 3, max = 80)
     private String nome;
     
     @Length(min = 1, max = 1)
@@ -29,6 +30,9 @@ public class Membro implements Serializable {
     
     @ManyToMany
     private List<Chamado> chamados;
+
+    @ManyToOne
+    private Unidade unidade;
 
     public Membro() {
     }
@@ -44,12 +48,14 @@ public class Membro implements Serializable {
         this.sexo = sexo;
     }
     
-    public Membro(String nome, String sexo, List<ChamadoSemMembrosForm> chamadosForm) {
+    public Membro(String nome, String sexo, List<ChamadoSemMembrosForm> chamadosForm, Unidade unidade) {
         this.nome = nome;
         this.sexo = sexo;
         this.chamados = new ArrayList<>();
         if (chamadosForm != null)
         this.chamados.addAll(chamadosForm.stream().map(Chamado::new).collect(Collectors.toList()));
+        this.unidade = unidade;
+        ;
     }
     
     @Override
@@ -107,5 +113,13 @@ public class Membro implements Serializable {
 
     public void setChamados(List<Chamado> chamados) {
         this.chamados = chamados;
+    }
+
+    public Unidade getUnidade() {
+        return unidade;
+    }
+
+    public void setUnidade(Unidade unidade) {
+        this.unidade = unidade;
     }
 }

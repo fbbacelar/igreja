@@ -1,6 +1,5 @@
 package br.com.fabio.igreja.models;
 
-import br.com.fabio.igreja.controllers.form.ChamadoSemMembrosForm;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,13 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.validator.constraints.Length;
+import br.com.fabio.igreja.controllers.form.UnidadeSemMembrosForm;
 
-@Entity(name="Chamado")
-@Table(name="chamado")
-public class Chamado implements Serializable {
+@Entity(name="Unidade")
+@Table(name="unidade")
+public class Unidade implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,24 +23,24 @@ public class Chamado implements Serializable {
     @Length(min = 3, max = 80)
     private String nome;
     
-    @ManyToMany(mappedBy = "chamados")
+    @OneToMany(mappedBy = "unidade")
     private List<Membro> membros;
     
-    public Chamado() {
+    public Unidade() {
     }
 
-    public Chamado(String nome) {
+    public Unidade(String nome) {
         this.nome = nome;
         if (this.membros == null)
             this.membros = new ArrayList<>();
     }
     
-    public Chamado(Long id, String nome) {
+    public Unidade(Long id, String nome) {
         this.id = id;
         this.nome = nome;
     }
 
-    public Chamado(ChamadoSemMembrosForm chamado) {
+    public Unidade(UnidadeSemMembrosForm chamado) {
         this.id = chamado.getId();
         this.nome = chamado.getNome();
     }
@@ -61,7 +61,7 @@ public class Chamado implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Chamado other = (Chamado) obj;
+        Unidade other = (Unidade) obj;
         if (getId() == null) {
             if (other.getId() != null)
                 return false;
@@ -88,9 +88,5 @@ public class Chamado implements Serializable {
 
     public List<Membro> getMembros() {
         return membros;
-    }
-
-    public void setMembros(List<Membro> membros) {
-        this.membros = membros;
     }
 }

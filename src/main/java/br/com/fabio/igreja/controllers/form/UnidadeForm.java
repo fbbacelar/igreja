@@ -2,9 +2,9 @@ package br.com.fabio.igreja.controllers.form;
 
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
-import br.com.fabio.igreja.models.Chamado;
+import br.com.fabio.igreja.models.Unidade;
 
-public class ChamadoForm {
+public class UnidadeForm {
 
     @NotNull @Length(min=5, max=255)
     private String nome;
@@ -17,12 +17,12 @@ public class ChamadoForm {
         this.nome = nome;
     }
     
-    public Chamado converter(){
-        return new Chamado(nome);
+    public Unidade converter(){
+        return new Unidade(nome);
     }
 
-    public Chamado atualizar(Chamado chamado){
-        chamado.setNome(this.nome);
-        return chamado;
+    public Unidade atualizar(Unidade unidade){
+        unidade.setNome(this.nome);
+        return unidade;
     }
 }

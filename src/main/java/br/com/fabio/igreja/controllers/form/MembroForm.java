@@ -1,9 +1,10 @@
 package br.com.fabio.igreja.controllers.form;
 
-import br.com.fabio.igreja.models.Membro;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
+import br.com.fabio.igreja.models.Membro;
+import br.com.fabio.igreja.models.Unidade;
 
 public class MembroForm {
 
@@ -14,6 +15,8 @@ public class MembroForm {
     private String sexo;
 
     private List<ChamadoSemMembrosForm> chamados;
+
+    private Unidade unidade;
 
 
     public String getNome() {
@@ -39,9 +42,17 @@ public class MembroForm {
     public void setChamados(List<ChamadoSemMembrosForm> chamados) {
         this.chamados = chamados;
     }
-    
+
+    public Unidade getUnidade() {
+        return unidade;
+    }
+
+    public void setUnidade(Unidade unidade) {
+        this.unidade = unidade;
+    }
+
     public Membro converter(){
-        return new Membro(nome, sexo, chamados);
+        return new Membro(nome, sexo, chamados, unidade);
     }
 
     public Membro atualizar(Membro membro){

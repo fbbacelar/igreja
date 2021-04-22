@@ -1,20 +1,18 @@
 package br.com.fabio.igreja.services;
 
+import java.net.URI;
+import java.util.HashMap;
+import java.util.List;
+import javax.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.util.UriComponentsBuilder;
 import br.com.fabio.igreja.controllers.dto.MembroDetalheDto;
 import br.com.fabio.igreja.controllers.dto.MembroDto;
 import br.com.fabio.igreja.controllers.form.MembroForm;
 import br.com.fabio.igreja.models.Membro;
 import br.com.fabio.igreja.repositories.MembroRepository;
-import java.net.URI;
-import java.util.HashMap;
-import java.util.List;
-
-import javax.transaction.Transactional;
-import javax.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 @Transactional
@@ -51,31 +49,41 @@ public class MembroService {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public MembroDetalheDto getOne(Long id) {
+    public MembroDetalheDto buscar(Long id) {
         return new MembroDetalheDto(repository.getOne(id));
     }
 
-    public List<MembroDto> find(String chamadoNome) {
-        if (chamadoNome == null) {
+    public List<MembroDto> listar(String chamadoNome, String unidadeNome) {
+        if (chamadoNome == null && unidadeNome == null) {
             List<Membro> membros = repository.findAll();
             return MembroDto.converter(membros);
-        } else {
+        } else if (chamadoNome != null && unidadeNome == null) {
             List<Membro> membros = repository.findByChamados_Nome(chamadoNome);
+            return MembroDto.converter(membros);
+        } else if (chamadoNome == null && unidadeNome != null) {
+            List<Membro> membros = repository.findByUnidade_Nome(unidadeNome);
+            return MembroDto.converter(membros);
+        }else{
+            List<Membro> membros = repository.findByChamados_NomeAndUnidade_Nome(chamadoNome, unidadeNome);
             return MembroDto.converter(membros);
         }
     }
 
-    public ResponseEntity<MembroDetalheDto> save(MembroForm membroForm, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<MembroDetalheDto> salvar(MembroForm membroForm, UriComponentsBuilder uriBuilder) {
         Membro membro = membroForm.converter();
         repository.save(membro);
         URI uri = uriBuilder.path("/membros/{id}").buildAndExpand(membro.getId()).toUri();
         return ResponseEntity.created(uri).body(new MembroDetalheDto(membro));
     }
 
-    public ResponseEntity<MembroDetalheDto> atualizar(Long id, @Valid MembroForm membroForm) {
+    public ResponseEntity<MembroDetalheDto> atualizar(Long id, MembroForm membroForm) {
         Membro membro = repository.getOne(id);
         membro = membroForm.atualizar(membro);
         return ResponseEntity.ok(new MembroDetalheDto(membro));
     }
 
+    public ResponseEntity<?> remover(Long id) {
+        repository.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
 }

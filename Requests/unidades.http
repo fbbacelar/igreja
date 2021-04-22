@@ -1,0 +1,35 @@
+
+#Unidades
+GET http://localhost:8081/unidades
+###
+
+GET http://localhost:8081/unidades?membroNome=Fábio Brandão Bacelar
+###
+
+GET http://localhost:8081/unidades/1
+###
+
+POST http://localhost:8081/unidades
+Content-Type: application/json
+
+{
+    "nome": "Ala Malhado"
+}
+###
+
+POST http://localhost:8081/unidades
+Content-Type: application/json
+
+{
+    "nome": "Ala"
+}
+###
+
+POST http://localhost:8081/unidades
+Content-Type: application/json
+Accept-Language: en-US
+
+{
+    "nome": "Al"
+}
+###
