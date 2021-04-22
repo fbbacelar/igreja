@@ -1,6 +1,9 @@
 package br.com.fabio.igreja.models;
 
 import br.com.fabio.igreja.controllers.form.ChamadoSemMembrosForm;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +17,8 @@ import org.hibernate.validator.constraints.Length;
 
 @Entity(name="Chamado")
 @Table(name="chamado")
+@Data
+@NoArgsConstructor
 public class Chamado implements Serializable {
 
     @Id
@@ -26,9 +31,6 @@ public class Chamado implements Serializable {
     @ManyToMany(mappedBy = "chamados")
     private List<Membro> membros;
     
-    public Chamado() {
-    }
-
     public Chamado(String nome) {
         this.nome = nome;
         if (this.membros == null)
@@ -45,52 +47,4 @@ public class Chamado implements Serializable {
         this.nome = chamado.getNome();
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Chamado other = (Chamado) obj;
-        if (getId() == null) {
-            if (other.getId() != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        return true;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public List<Membro> getMembros() {
-        return membros;
-    }
-
-    public void setMembros(List<Membro> membros) {
-        this.membros = membros;
-    }
 }
