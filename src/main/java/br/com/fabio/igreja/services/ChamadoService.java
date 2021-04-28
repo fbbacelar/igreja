@@ -1,8 +1,10 @@
 package br.com.fabio.igreja.services;
 
+import br.com.fabio.igreja.Utils.Validacoes;
 import br.com.fabio.igreja.controllers.dto.ChamadoDetalheDto;
 import br.com.fabio.igreja.controllers.dto.ChamadoDto;
 import br.com.fabio.igreja.controllers.form.ChamadoForm;
+import br.com.fabio.igreja.exceptions.ServiceException;
 import br.com.fabio.igreja.models.Chamado;
 import br.com.fabio.igreja.models.Membro;
 import br.com.fabio.igreja.repositories.ChamadoRepository;
@@ -45,7 +47,8 @@ public class ChamadoService {
         return repository.findByMembros_Nome(nome);
     }
 
-    public ChamadoDetalheDto getOne(Long id) {
+    public ChamadoDetalheDto getOne(Long id) throws ServiceException {
+        Validacoes.verificaId(id);
         return new ChamadoDetalheDto(repository.getOne(id));
     }
     
@@ -66,13 +69,15 @@ public class ChamadoService {
         return ResponseEntity.created(uri).body(new ChamadoDetalheDto(chamado));
     }
 
-    public ResponseEntity<ChamadoDetalheDto> atualizar(Long id, ChamadoForm chamadoForm) {
+    public ResponseEntity<ChamadoDetalheDto> atualizar(Long id, ChamadoForm chamadoForm) throws ServiceException {
+        Validacoes.verificaId(id);
         Chamado chamado = repository.getOne(id);
         chamado = chamadoForm.atualizar(chamado);
         return ResponseEntity.ok(new ChamadoDetalheDto(chamado));
     }
 
-    public ResponseEntity<?> deleteById(Long id) {
+    public ResponseEntity<?> deleteById(Long id) throws ServiceException {
+        Validacoes.verificaId(id);
         repository.deleteById(id);
         return ResponseEntity.ok().build();
     }

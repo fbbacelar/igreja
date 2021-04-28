@@ -16,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.fabio.igreja.controllers.dto.UnidadeDetalheDto;
 import br.com.fabio.igreja.controllers.dto.UnidadeDto;
 import br.com.fabio.igreja.controllers.form.UnidadeForm;
+import br.com.fabio.igreja.exceptions.ServiceException;
 import br.com.fabio.igreja.services.UnidadeService;
 
 @RestController
@@ -36,17 +37,17 @@ public class UnidadeController {
     }
     
     @GetMapping("/{id}")
-    public UnidadeDetalheDto buscar(@PathVariable Long id){
+    public UnidadeDetalheDto buscar(@PathVariable Long id) throws ServiceException{
         return service.getOne(id);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UnidadeDetalheDto> atualizar(@RequestBody @Valid UnidadeForm unidadeForm, @PathVariable Long id) {
+    public ResponseEntity<UnidadeDetalheDto> atualizar(@RequestBody @Valid UnidadeForm unidadeForm, @PathVariable Long id) throws ServiceException {
         return service.atualizar(id, unidadeForm);
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> remover(@PathVariable Long id) {
+    public ResponseEntity<?> remover(@PathVariable Long id) throws ServiceException {
         return service.deleteById(id);
     }
 }

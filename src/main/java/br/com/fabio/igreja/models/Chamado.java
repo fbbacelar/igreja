@@ -2,6 +2,7 @@ package br.com.fabio.igreja.models;
 
 import br.com.fabio.igreja.controllers.form.ChamadoSemMembrosForm;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
@@ -13,16 +14,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
 import org.hibernate.validator.constraints.Length;
 
 @Entity(name="Chamado")
 @Table(name="chamado")
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Chamado implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
     
     @Length(min = 3, max = 80)

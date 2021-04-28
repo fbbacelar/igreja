@@ -10,7 +10,7 @@ public class MembroSemChamadosForm {
     @NotNull @NotEmpty
     private Long id;
 
-    @NotNull @Length(min=5, max=255)
+    @NotNull @Length(min=5, max=80)
     private String nome;
     
     @NotNull @Length(min=1, max=1)

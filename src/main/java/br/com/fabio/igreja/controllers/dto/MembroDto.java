@@ -1,11 +1,12 @@
 package br.com.fabio.igreja.controllers.dto;
 
 import java.util.stream.Collectors;
-
 import br.com.fabio.igreja.models.Membro;
-// import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+
 import java.util.List;
 
+@Getter
 public class MembroDto {
 
     private final Long id;
@@ -18,19 +19,6 @@ public class MembroDto {
         this.id = membro.getId();
         this.nome = membro.getNome();
         this.sexo = membro.getSexo();
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getSexo() {
-        return sexo;
     }
 
     public static List<MembroDto> converter(List<Membro> membros) {

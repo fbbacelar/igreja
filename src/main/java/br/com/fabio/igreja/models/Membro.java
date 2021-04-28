@@ -10,20 +10,25 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.validator.constraints.Length;
 import br.com.fabio.igreja.controllers.form.ChamadoSemMembrosForm;
+import br.com.fabio.igreja.controllers.form.PapeletaMembroForm;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity(name="Membro")
 @Table(name="membro")
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Membro implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
     
     @Length(min = 3, max = 80)
@@ -33,10 +38,14 @@ public class Membro implements Serializable {
     private String sexo;
     
     @ManyToMany
+    //Adicionar joinColumn
     private List<Chamado> chamados;
 
     @ManyToOne
     private Unidade unidade;
+
+    @OneToMany(mappedBy = "membro")
+    private List<Papeleta> papeleta;
 
     public Membro(Long id, String nome, String sexo) {
         this.id = id;
@@ -58,4 +67,11 @@ public class Membro implements Serializable {
         this.unidade = unidade;
         ;
     }
+
+    public Membro(PapeletaMembroForm membroForm){
+        this.id = membroForm.getId();
+        this.nome = membroForm.getNome();
+        this.sexo = membroForm.getSexo();
+    }
+
 }

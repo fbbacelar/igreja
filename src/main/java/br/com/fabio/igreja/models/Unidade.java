@@ -12,16 +12,19 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.Length;
 import br.com.fabio.igreja.controllers.form.UnidadeSemMembrosForm;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity(name="Unidade")
 @Table(name="unidade")
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Unidade implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
     
     @Length(min = 3, max = 80)

@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import br.com.fabio.igreja.Utils.Validacoes;
 import br.com.fabio.igreja.controllers.dto.MembroDetalheDto;
 import br.com.fabio.igreja.controllers.dto.MembroDto;
 import br.com.fabio.igreja.controllers.form.MembroForm;
+import br.com.fabio.igreja.exceptions.ServiceException;
 import br.com.fabio.igreja.models.Membro;
 import br.com.fabio.igreja.repositories.MembroRepository;
 
@@ -49,7 +52,8 @@ public class MembroService {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public MembroDetalheDto buscar(Long id) {
+    public MembroDetalheDto buscar(Long id) throws ServiceException {
+        Validacoes.verificaId(id);
         return new MembroDetalheDto(repository.getOne(id));
     }
 
@@ -76,13 +80,15 @@ public class MembroService {
         return ResponseEntity.created(uri).body(new MembroDetalheDto(membro));
     }
 
-    public ResponseEntity<MembroDetalheDto> atualizar(Long id, MembroForm membroForm) {
+    public ResponseEntity<MembroDetalheDto> atualizar(Long id, MembroForm membroForm) throws ServiceException{
+        Validacoes.verificaId(id);
         Membro membro = repository.getOne(id);
         membro = membroForm.atualizar(membro);
         return ResponseEntity.ok(new MembroDetalheDto(membro));
     }
 
-    public ResponseEntity<?> remover(Long id) {
+    public ResponseEntity<?> remover(Long id) throws ServiceException{
+        Validacoes.verificaId(id);
         repository.deleteById(id);
         return ResponseEntity.ok().build();
     }

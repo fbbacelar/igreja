@@ -1,8 +1,10 @@
 package br.com.fabio.igreja.services;
 
+import br.com.fabio.igreja.Utils.Validacoes;
 import br.com.fabio.igreja.controllers.dto.UnidadeDetalheDto;
 import br.com.fabio.igreja.controllers.dto.UnidadeDto;
 import br.com.fabio.igreja.controllers.form.UnidadeForm;
+import br.com.fabio.igreja.exceptions.ServiceException;
 import br.com.fabio.igreja.models.Unidade;
 import br.com.fabio.igreja.models.Membro;
 import br.com.fabio.igreja.repositories.UnidadeRepository;
@@ -45,7 +47,8 @@ public class UnidadeService {
         return repository.findByMembros_Nome(nome);
     }
 
-    public UnidadeDetalheDto getOne(Long id) {
+    public UnidadeDetalheDto getOne(Long id) throws ServiceException {
+        Validacoes.verificaId(id);
         return new UnidadeDetalheDto(repository.getOne(id));
     }
     
@@ -66,13 +69,15 @@ public class UnidadeService {
         return ResponseEntity.created(uri).body(new UnidadeDetalheDto(chamado));
     }
 
-    public ResponseEntity<UnidadeDetalheDto> atualizar(Long id, UnidadeForm chamadoForm) {
+    public ResponseEntity<UnidadeDetalheDto> atualizar(Long id, UnidadeForm chamadoForm) throws ServiceException {
+        Validacoes.verificaId(id);
         Unidade chamado = repository.getOne(id);
         chamado = chamadoForm.atualizar(chamado);
         return ResponseEntity.ok(new UnidadeDetalheDto(chamado));
     }
 
-    public ResponseEntity<?> deleteById(Long id) {
+    public ResponseEntity<?> deleteById(Long id) throws ServiceException {
+        Validacoes.verificaId(id);
         repository.deleteById(id);
         return ResponseEntity.ok().build();
     }

@@ -16,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.fabio.igreja.controllers.dto.MembroDetalheDto;
 import br.com.fabio.igreja.controllers.dto.MembroDto;
 import br.com.fabio.igreja.controllers.form.MembroForm;
+import br.com.fabio.igreja.exceptions.ServiceException;
 import br.com.fabio.igreja.services.MembroService;
 
 @RestController
@@ -36,17 +37,17 @@ public class MembroController {
     }
     
     @GetMapping("/{id}")
-    public MembroDetalheDto buscar(@PathVariable Long id){
+    public MembroDetalheDto buscar(@PathVariable Long id) throws ServiceException{
         return service.buscar(id);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MembroDetalheDto> atualizar(@RequestBody @Valid MembroForm membroForm, @PathVariable Long id) {
+    public ResponseEntity<MembroDetalheDto> atualizar(@RequestBody @Valid MembroForm membroForm, @PathVariable Long id) throws ServiceException {
         return service.atualizar(id, membroForm);
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> remover(@PathVariable Long id) {
+    public ResponseEntity<?> remover(@PathVariable Long id) throws ServiceException {
         return service.remover(id);
     }
 }

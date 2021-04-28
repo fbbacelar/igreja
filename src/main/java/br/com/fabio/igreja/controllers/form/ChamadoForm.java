@@ -6,7 +6,7 @@ import br.com.fabio.igreja.models.Chamado;
 
 public class ChamadoForm {
 
-    @NotNull @Length(min=5, max=255)
+    @NotNull @Length(min=5, max=80)
     private String nome;
     
     public String getNome() {
