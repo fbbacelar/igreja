@@ -27,7 +27,7 @@ public class MembroController {
     MembroService service;
 
     @GetMapping
-    public List<MembroDto> listar(String chamadoNome, String unidadeNome) {
+    public ResponseEntity<List<MembroDto>> listar(String chamadoNome, String unidadeNome) {
         return service.listar(chamadoNome, unidadeNome);
     }
 
@@ -37,7 +37,7 @@ public class MembroController {
     }
     
     @GetMapping("/{id}")
-    public MembroDetalheDto buscar(@PathVariable Long id) throws ServiceException{
+    public ResponseEntity<MembroDetalheDto> buscar(@PathVariable Long id) throws ServiceException{
         return service.buscar(id);
     }
 

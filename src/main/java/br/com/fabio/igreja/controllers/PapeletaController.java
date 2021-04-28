@@ -25,7 +25,7 @@ public class PapeletaController {
     PapeletaService service;
 
     @GetMapping
-    public List<PapeletaDto> listar(String membroNome) {
+    public ResponseEntity<List<PapeletaDto>> listar(String membroNome) {
         return service.find(membroNome);
     }
 
@@ -35,15 +35,11 @@ public class PapeletaController {
     }
     
     @GetMapping("/{id}")
-    public PapeletaDto buscar(@PathVariable Long id) throws ServiceException{
+    public ResponseEntity<PapeletaDto> buscar(@PathVariable Long id) throws ServiceException{
         return service.getOne(id);
     }
 
     //Não é permitido alterar papeleta
-    // @PutMapping("/{id}")
-    // public ResponseEntity<PapeletaDto> atualizar(@RequestBody @Valid PapeletaForm papeletaForm, @PathVariable Long id) {
-    //     return service.atualizar(id, papeletaForm);
-    // }
     
     @DeleteMapping("/{id}")
     public ResponseEntity<?> remover(@PathVariable Long id) throws ServiceException {

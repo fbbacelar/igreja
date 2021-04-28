@@ -47,18 +47,18 @@ public class UnidadeService {
         return repository.findByMembros_Nome(nome);
     }
 
-    public UnidadeDetalheDto getOne(Long id) throws ServiceException {
+    public ResponseEntity<UnidadeDetalheDto> getOne(Long id) throws ServiceException {
         Validacoes.verificaId(id);
-        return new UnidadeDetalheDto(repository.getOne(id));
+        return ResponseEntity.ok(new UnidadeDetalheDto(repository.getOne(id)));
     }
     
-    public List<UnidadeDto> find(String membroNome) {
+    public ResponseEntity<List<UnidadeDto>> find(String membroNome) {
         if (membroNome == null) {
             List<Unidade> unidades = repository.findAll();
-            return UnidadeDto.converter(unidades);
+            return ResponseEntity.ok(UnidadeDto.converter(unidades));
         } else {
             List<Unidade> unidades = repository.findByMembros_Nome(membroNome);
-            return UnidadeDto.converter(unidades);
+            return ResponseEntity.ok(UnidadeDto.converter(unidades));
         }
     }
 

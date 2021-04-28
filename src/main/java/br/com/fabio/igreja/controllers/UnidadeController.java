@@ -27,7 +27,7 @@ public class UnidadeController {
     UnidadeService service;
 
     @GetMapping
-    public List<UnidadeDto> listar(String membroNome) {
+    public ResponseEntity<List<UnidadeDto>> listar(String membroNome) {
         return service.find(membroNome);
     }
 
@@ -37,7 +37,7 @@ public class UnidadeController {
     }
     
     @GetMapping("/{id}")
-    public UnidadeDetalheDto buscar(@PathVariable Long id) throws ServiceException{
+    public ResponseEntity<UnidadeDetalheDto> buscar(@PathVariable Long id) throws ServiceException{
         return service.getOne(id);
     }
 

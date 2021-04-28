@@ -52,24 +52,24 @@ public class MembroService {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public MembroDetalheDto buscar(Long id) throws ServiceException {
+    public ResponseEntity<MembroDetalheDto> buscar(Long id) throws ServiceException {
         Validacoes.verificaId(id);
-        return new MembroDetalheDto(repository.getOne(id));
+        return ResponseEntity.ok(new MembroDetalheDto(repository.getOne(id)));
     }
 
-    public List<MembroDto> listar(String chamadoNome, String unidadeNome) {
+    public ResponseEntity<List<MembroDto>> listar(String chamadoNome, String unidadeNome) {
         if (chamadoNome == null && unidadeNome == null) {
             List<Membro> membros = repository.findAll();
-            return MembroDto.converter(membros);
+            return ResponseEntity.ok(MembroDto.converter(membros));
         } else if (chamadoNome != null && unidadeNome == null) {
             List<Membro> membros = repository.findByChamados_Nome(chamadoNome);
-            return MembroDto.converter(membros);
+            return ResponseEntity.ok(MembroDto.converter(membros));
         } else if (chamadoNome == null && unidadeNome != null) {
             List<Membro> membros = repository.findByUnidade_Nome(unidadeNome);
-            return MembroDto.converter(membros);
+            return ResponseEntity.ok(MembroDto.converter(membros));
         }else{
             List<Membro> membros = repository.findByChamados_NomeAndUnidade_Nome(chamadoNome, unidadeNome);
-            return MembroDto.converter(membros);
+            return ResponseEntity.ok(MembroDto.converter(membros));
         }
     }
 

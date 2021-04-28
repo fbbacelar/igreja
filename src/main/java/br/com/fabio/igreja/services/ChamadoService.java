@@ -10,9 +10,7 @@ import br.com.fabio.igreja.models.Membro;
 import br.com.fabio.igreja.repositories.ChamadoRepository;
 import java.net.URI;
 import java.util.List;
-
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -47,18 +45,18 @@ public class ChamadoService {
         return repository.findByMembros_Nome(nome);
     }
 
-    public ChamadoDetalheDto getOne(Long id) throws ServiceException {
+    public ResponseEntity<ChamadoDetalheDto> getOne(Long id) throws ServiceException {
         Validacoes.verificaId(id);
-        return new ChamadoDetalheDto(repository.getOne(id));
+        return ResponseEntity.ok(new ChamadoDetalheDto(repository.getOne(id)));
     }
     
-    public List<ChamadoDto> find(String membroNome) {
+    public ResponseEntity<List<ChamadoDto>> find(String membroNome) {
         if (membroNome == null) {
             List<Chamado> chamados = repository.findAll();
-            return ChamadoDto.converter(chamados);
+            return ResponseEntity.ok(ChamadoDto.converter(chamados));
         } else {
             List<Chamado> chamados = repository.findByMembros_Nome(membroNome);
-            return ChamadoDto.converter(chamados);
+            return ResponseEntity.ok(ChamadoDto.converter(chamados));
         }
     }
 

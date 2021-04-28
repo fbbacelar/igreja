@@ -29,7 +29,7 @@ public class ChamadoController {
     ChamadoService service;
 
     @GetMapping
-    public List<ChamadoDto> listar(String membroNome) {
+    public ResponseEntity<List<ChamadoDto>> listar(String membroNome) {
         return service.find(membroNome);
     }
 
@@ -39,7 +39,7 @@ public class ChamadoController {
     }
     
     @GetMapping("/{id}")
-    public ChamadoDetalheDto buscar(@PathVariable @Min(value = 1) @NotNull Long id) throws ServiceException{
+    public ResponseEntity<ChamadoDetalheDto> buscar(@PathVariable @Min(value = 1) @NotNull Long id) throws ServiceException{
         return service.getOne(id);
     }
 

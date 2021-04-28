@@ -45,18 +45,18 @@ public class PapeletaService {
         return repository.findByMembro_Nome(nome);
     }
 
-    public PapeletaDto getOne(Long id) throws ServiceException {
+    public ResponseEntity<PapeletaDto> getOne(Long id) throws ServiceException {
         Validacoes.verificaId(id);
-        return new PapeletaDto(repository.getOne(id));
+        return ResponseEntity.ok(new PapeletaDto(repository.getOne(id)));
     }
     
-    public List<PapeletaDto> find(String membroNome) {
+    public ResponseEntity<List<PapeletaDto>> find(String membroNome) {
         if (membroNome == null) {
             List<Papeleta> papeletas = repository.findAll();
-            return PapeletaDto.converter(papeletas);
+            return ResponseEntity.ok(PapeletaDto.converter(papeletas));
         } else {
             List<Papeleta> papeletas = repository.findByMembro_Nome(membroNome);
-            return PapeletaDto.converter(papeletas);
+            return ResponseEntity.ok(PapeletaDto.converter(papeletas));
         }
     }
 
